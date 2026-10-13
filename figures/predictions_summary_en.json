@@ -1,0 +1,128 @@
+[
+  {
+    "no": 1,
+    "caption": "Vehicle 1 - white sedan, frontal view (severe front-end impact)",
+    "file": "rear_bumber-63-_jpg.rf.4efe4ba5417460b0e70dc70879d25702.jpg",
+    "damages": [
+      {
+        "class": "Dent",
+        "confidence": 0.9314,
+        "part": "Hood",
+        "overlap": 0.9229
+      },
+      {
+        "class": "Crack",
+        "confidence": 0.9286,
+        "part": "Front Light",
+        "overlap": 0.9985
+      }
+    ],
+    "parts_detected": [
+      "Front Bumper",
+      "Front Glass",
+      "Front Left Light",
+      "Front Light",
+      "Front Right Light",
+      "Hood",
+      "Left Mirror",
+      "Right Mirror"
+    ]
+  },
+  {
+    "no": 2,
+    "caption": "Vehicle 2 - red hatchback, front detail (headlight area)",
+    "file": "Scratch_original_image5-jpeg_b8797005-5b2f-43d9-9a94-6060457fa21c_jpeg_jpg.rf.1378688324939961a0b9d71658733f35.jpg",
+    "damages": [
+      {
+        "class": "Crack",
+        "confidence": 0.6998,
+        "part": null,
+        "overlap": null
+      },
+      {
+        "class": "Scratch",
+        "confidence": 0.6143,
+        "part": "Hood",
+        "overlap": 0.7384
+      }
+    ],
+    "parts_detected": [
+      "Front Glass",
+      "Front Light",
+      "Hood"
+    ]
+  },
+  {
+    "no": 3,
+    "caption": "Vehicle 3 - blue sedan, side view (door panel)",
+    "file": "smallscratches_original_19-jpg_0d9c0cbd-31ed-45de-b01a-8dff126a73d6_jpg.rf.f1b6804cd14011ff81557684f8325dca.jpg",
+    "damages": [
+      {
+        "class": "Scratch",
+        "confidence": 0.8098,
+        "part": null,
+        "overlap": null
+      },
+      {
+        "class": "Dent",
+        "confidence": 0.2815,
+        "part": null,
+        "overlap": null
+      }
+    ],
+    "parts_detected": []
+  },
+  {
+    "no": 4,
+    "caption": "Vehicle 4 - dark blue sedan, front three-quarter view",
+    "file": "Scratch_original_image47-jpg_fe456ceb-212b-42e2-92d9-5966844e7aeb_jpg.rf.ce90f1421e70e02f38220ae3d8f5190f.jpg",
+    "damages": [
+      {
+        "class": "Scratch",
+        "confidence": 0.6821,
+        "part": null,
+        "overlap": null
+      }
+    ],
+    "parts_detected": [
+      "Back Glass",
+      "Front Light"
+    ]
+  },
+  {
+    "no": 5,
+    "caption": "Vehicle 5 - white sedan, rear quarter view",
+    "file": "Scratch_original_image53-jpg_6a075851-9bae-4075-9434-9f3f44d1a3a5_jpg.rf.31bb34ffd691202da4a23f075a09213a.jpg",
+    "damages": [
+      {
+        "class": "Dent",
+        "confidence": 0.3522,
+        "part": null,
+        "overlap": null
+      },
+      {
+        "class": "Crack",
+        "confidence": 0.253,
+        "part": null,
+        "overlap": null
+      }
+    ],
+    "parts_detected": []
+  },
+  {
+    "no": 6,
+    "caption": "Vehicle 6 - white panel, door-edge detail",
+    "file": "smallscratches_original_18-jpg_5b6a3b8d-0b0a-4a7c-87de-6cba9d9e15d2_jpg.rf.6419cc0dc5cb0966cadd041c5710df63.jpg",
+    "damages": [
+      {
+        "class": "Scratch",
+        "confidence": 0.6897,
+        "part": null,
+        "overlap": null
+      }
+    ],
+    "parts_detected": [
+      "Front Door"
+    ]
+  }
+]
