@@ -1,0 +1,128 @@
+# ============================================================
+#  Model ağırlıkları — boyut nedeniyle depoya alınmaz
+#  İndirme bağlantıları: MODELS.md
+# ============================================================
+*.pt
+*.pth
+*.onnx
+*.engine
+*.tflite
+*.mlmodel
+models/*
+!models/.gitkeep
+
+# ============================================================
+#  Veri seti — Roboflow üzerinde barındırılır
+# ============================================================
+datasets/
+dataset/
+dataset_*/
+data/
+*.zip
+*.tar
+*.tar.gz
+*.rar
+images/
+labels/
+train/
+valid/
+val/
+test/
+!notebooks/
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.webp
+!docs/**/*.png
+!docs/**/*.jpg
+
+# ============================================================
+#  Gizli bilgi — asla depoya girmemeli
+# ============================================================
+.env
+.env.*
+*.key
+secrets.json
+credentials.json
+service_account*.json
+roboflow_config.json
+.roboflow/
+
+# ============================================================
+#  Eğitim çıktıları
+# ============================================================
+runs/
+wandb/
+lightning_logs/
+*.log
+results.csv
+events.out.tfevents.*
+
+# ============================================================
+#  Python
+# ============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Sanal ortamlar
+.venv/
+venv/
+ENV/
+env/
+
+# Test ve kapsam
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# ============================================================
+#  Jupyter / Colab
+# ============================================================
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+.virtual_documents/
+
+# ============================================================
+#  İşletim sistemi ve editör
+# ============================================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ============================================================
+#  Geçici çıktılar
+# ============================================================
+sonuclar/
+outputs/
+tmp/
+temp/

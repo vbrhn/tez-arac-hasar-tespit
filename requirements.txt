@@ -1,0 +1,43 @@
+# Sigorta Sektöründe Derin Öğrenme Tabanlı Otomatik Araç Hasar Tespit Sistemi
+# Python 3.10+
+#
+# Kurulum:
+#   pip install -r requirements.txt
+#
+# NOT — tam sürüm sabitleme:
+# Eğitim Google Colab üzerinde yapıldığı için paket sürümleri Colab imajı
+# tarafından belirlenmiştir. Notebookların ilk hücresi çalıştırıldığında
+# kullanılan tam sürümler çıktıya yazılır. Birebir yeniden üretim için o
+# çıktıdaki sürümleri aşağıdaki aralıkların yerine yazın, örn:
+#   ultralytics==8.4.45
+#
+# Kullanılan tam listeyi dondurmak için:
+#   pip freeze > requirements-lock.txt
+
+# --- Çekirdek ---
+ultralytics>=8.4.0,<8.5.0
+torch>=2.4.0,<3.0.0
+torchvision>=0.19.0
+
+# --- Görüntü işleme ---
+opencv-python-headless>=4.10.0,<5.0.0
+pillow>=10.4.0
+numpy>=1.26.0,<3.0.0
+
+# --- Geometri (örtüşme füzyonu ve kutucuklama poligon kırpması) ---
+shapely>=2.0.6,<3.0.0
+
+# --- Yineleme eleme (algısal karma, dHash) ---
+imagehash>=4.3.1
+scipy>=1.13.0
+
+# --- Veri ve grafik ---
+pandas>=2.2.0
+matplotlib>=3.9.0
+seaborn>=0.13.0
+pyyaml>=6.0.1
+tqdm>=4.66.0
+
+# --- Veri seti erişimi (yalnızca yeniden eğitim için) ---
+# ROBOFLOW_API_KEY ortam değişkeni gereklidir
+roboflow>=1.1.40
