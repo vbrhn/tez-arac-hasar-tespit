@@ -36,6 +36,7 @@ test/
 *.webp
 !docs/**/*.png
 !docs/**/*.jpg
+!figures/**
 
 # ============================================================
 #  Gizli bilgi — asla depoya girmemeli
