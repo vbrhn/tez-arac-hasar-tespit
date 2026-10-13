@@ -1,0 +1,616 @@
+[
+ {
+  "kod": "242866",
+  "tr": "Araç 1 — Audi RS6 Avant (siyah)",
+  "en": "Vehicle 1 — Audi RS6 Avant (black)",
+  "marka": "Audi",
+  "model": "RS6 Avant",
+  "renk_tr": "Siyah",
+  "renk_en": "Black",
+  "aci_tr": [
+   "Arka sağ çeyrek",
+   "Ön sağ çeyrek",
+   "Ön"
+  ],
+  "aci_en": [
+   "Rear right quarter",
+   "Front right quarter",
+   "Front"
+  ],
+  "foto": [
+   "242866_1.jpg",
+   "242866_2.jpg",
+   "242866_4.jpg"
+  ],
+  "sonuc": [
+   {
+    "dosya": "242866_1.jpg",
+    "aci_tr": "Arka sağ çeyrek",
+    "aci_en": "Rear right quarter",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Cizik",
+      "guven": 0.378,
+      "parca": "back_bumper",
+      "ortusme": 0.9958,
+      "alan_yuzde": 0.466
+     }
+    ],
+    "parcalar": [
+     "back_bumper",
+     "back_glass",
+     "back_left_door",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "front_left_door",
+     "front_right_door",
+     "right_mirror",
+     "trunk",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "242866_2.jpg",
+    "aci_tr": "Ön sağ çeyrek",
+    "aci_en": "Front right quarter",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Kirik",
+      "guven": 0.8767,
+      "parca": "front_bumper",
+      "ortusme": 0.6951,
+      "alan_yuzde": 2.066
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.3075,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.38
+     }
+    ],
+    "parcalar": [
+     "back_left_door",
+     "back_right_door",
+     "front_bumper",
+     "front_glass",
+     "front_right_door",
+     "hood",
+     "right_mirror",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "242866_4.jpg",
+    "aci_tr": "Ön",
+    "aci_en": "Front",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Cizik",
+      "guven": 0.9292,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.508
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.8405,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 3.076
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.6207,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.935
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.4531,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.326
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.337,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.475
+     }
+    ],
+    "parcalar": [
+     "front_bumper",
+     "front_glass",
+     "front_left_light",
+     "right_mirror",
+     "wheel"
+    ]
+   }
+  ]
+ },
+ {
+  "kod": "17606914461334369139",
+  "tr": "Araç 2 — Peugeot 108 (gümüş)",
+  "en": "Vehicle 2 — Peugeot 108 (silver)",
+  "marka": "Peugeot",
+  "model": "108",
+  "renk_tr": "Gümüş",
+  "renk_en": "Silver",
+  "aci_tr": [
+   "Ön",
+   "Ön sağ çeyrek",
+   "Arka sağ çeyrek"
+  ],
+  "aci_en": [
+   "Front",
+   "Front right quarter",
+   "Rear right quarter"
+  ],
+  "foto": [
+   "17606914461334369139-2.jpg",
+   "17606914461334369139-3.jpg",
+   "17606914461334369139-5.jpg"
+  ],
+  "sonuc": [
+   {
+    "dosya": "17606914461334369139-2.jpg",
+    "aci_tr": "Ön",
+    "aci_en": "Front",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Gocuk",
+      "guven": 0.6356,
+      "parca": "hood",
+      "ortusme": 0.993,
+      "alan_yuzde": 0.438
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.5328,
+      "parca": "front_left_light",
+      "ortusme": 0.7172,
+      "alan_yuzde": 0.406
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.4907,
+      "parca": "front_bumper",
+      "ortusme": 0.8878,
+      "alan_yuzde": 1.485
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.4707,
+      "parca": "hood",
+      "ortusme": 0.9548,
+      "alan_yuzde": 0.167
+     }
+    ],
+    "parcalar": [
+     "front_bumper",
+     "front_glass",
+     "front_left_light",
+     "front_right_light",
+     "hood",
+     "left_mirror",
+     "right_mirror"
+    ]
+   },
+   {
+    "dosya": "17606914461334369139-3.jpg",
+    "aci_tr": "Ön sağ çeyrek",
+    "aci_en": "Front right quarter",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Kirik",
+      "guven": 0.7788,
+      "parca": "front_bumper",
+      "ortusme": 0.5688,
+      "alan_yuzde": 1.738
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.6268,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 1.062
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.5078,
+      "parca": "front_bumper",
+      "ortusme": 0.9931,
+      "alan_yuzde": 0.168
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.4691,
+      "parca": "front_bumper",
+      "ortusme": 0.8622,
+      "alan_yuzde": 0.173
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.3471,
+      "parca": "front_bumper",
+      "ortusme": 0.9109,
+      "alan_yuzde": 3.424
+     }
+    ],
+    "parcalar": [
+     "back_left_door",
+     "front_bumper",
+     "front_glass",
+     "front_right_door",
+     "hood",
+     "left_mirror",
+     "right_mirror",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "17606914461334369139-5.jpg",
+    "aci_tr": "Arka sağ çeyrek",
+    "aci_en": "Rear right quarter",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Cizik",
+      "guven": 0.5813,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.069
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.3636,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.163
+     }
+    ],
+    "parcalar": [
+     "back_bumper",
+     "back_left_light",
+     "back_right_light",
+     "front_right_door",
+     "right_mirror",
+     "tailgate",
+     "wheel"
+    ]
+   }
+  ]
+ },
+ {
+  "kod": "1760712142464517150",
+  "tr": "Araç 3 — Peugeot Partner Tepee (mavi)",
+  "en": "Vehicle 3 — Peugeot Partner Tepee (blue)",
+  "marka": "Peugeot",
+  "model": "Partner Tepee",
+  "renk_tr": "Mavi",
+  "renk_en": "Blue",
+  "aci_tr": [
+   "Arka sol çeyrek",
+   "Ön sol çeyrek",
+   "Ön sağ çeyrek",
+   "Arka sağ çeyrek"
+  ],
+  "aci_en": [
+   "Rear left quarter",
+   "Front left quarter",
+   "Front right quarter",
+   "Rear right quarter"
+  ],
+  "foto": [
+   "1760712142464517150-1.jpg",
+   "1760712142464517150-3.jpg",
+   "1760712142464517150-5.jpg",
+   "1760712142464517150-8.jpg"
+  ],
+  "sonuc": [
+   {
+    "dosya": "1760712142464517150-1.jpg",
+    "aci_tr": "Arka sol çeyrek",
+    "aci_en": "Rear left quarter",
+    "boyut": [
+     960,
+     720
+    ],
+    "hasarlar": [
+     {
+      "ham": "Gocuk",
+      "guven": 0.8488,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 3.025
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.6136,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.178
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.5855,
+      "parca": "wheel",
+      "ortusme": 0.4258,
+      "alan_yuzde": 0.394
+     }
+    ],
+    "parcalar": [
+     "back_left_door",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "front_right_door",
+     "left_mirror",
+     "right_mirror",
+     "trunk",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "1760712142464517150-3.jpg",
+    "aci_tr": "Ön sol çeyrek",
+    "aci_en": "Front left quarter",
+    "boyut": [
+     960,
+     720
+    ],
+    "hasarlar": [],
+    "parcalar": [
+     "back_left_door",
+     "back_right_door",
+     "front_bumper",
+     "front_glass",
+     "front_left_light",
+     "front_right_door",
+     "front_right_light",
+     "hood",
+     "left_mirror",
+     "right_mirror",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "1760712142464517150-5.jpg",
+    "aci_tr": "Ön sağ çeyrek",
+    "aci_en": "Front right quarter",
+    "boyut": [
+     960,
+     720
+    ],
+    "hasarlar": [],
+    "parcalar": [
+     "back_right_door",
+     "front_bumper",
+     "front_glass",
+     "front_left_light",
+     "front_right_door",
+     "front_right_light",
+     "hood",
+     "left_mirror",
+     "right_mirror",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "1760712142464517150-8.jpg",
+    "aci_tr": "Arka sağ çeyrek",
+    "aci_en": "Rear right quarter",
+    "boyut": [
+     960,
+     720
+    ],
+    "hasarlar": [
+     {
+      "ham": "Kirik",
+      "guven": 0.8906,
+      "parca": "back_bumper",
+      "ortusme": 1.0,
+      "alan_yuzde": 0.45
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.8156,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 1.486
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.2991,
+      "parca": "back_bumper",
+      "ortusme": 0.9886,
+      "alan_yuzde": 0.348
+     }
+    ],
+    "parcalar": [
+     "back_bumper",
+     "back_left_door",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "front_right_door",
+     "right_mirror",
+     "trunk",
+     "wheel"
+    ]
+   }
+  ]
+ },
+ {
+  "kod": "1761133610501428962",
+  "tr": "Araç 4 — Hyundai Tucson (bej)",
+  "en": "Vehicle 4 — Hyundai Tucson (beige)",
+  "marka": "Hyundai",
+  "model": "Tucson",
+  "renk_tr": "Bej",
+  "renk_en": "Beige",
+  "aci_tr": [
+   "Arka",
+   "Ön",
+   "Ön sağ çeyrek"
+  ],
+  "aci_en": [
+   "Rear",
+   "Front",
+   "Front right quarter"
+  ],
+  "foto": [
+   "1761133610501428962-2.jpg",
+   "1761133610501428962-5.jpg",
+   "1761133610501428962-11.jpg"
+  ],
+  "sonuc": [
+   {
+    "dosya": "1761133610501428962-2.jpg",
+    "aci_tr": "Arka",
+    "aci_en": "Rear",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Cizik",
+      "guven": 0.4529,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 1.143
+     }
+    ],
+    "parcalar": [
+     "back_bumper",
+     "back_glass",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "trunk",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "1761133610501428962-5.jpg",
+    "aci_tr": "Ön",
+    "aci_en": "Front",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Gocuk",
+      "guven": 0.7626,
+      "parca": "hood",
+      "ortusme": 0.8425,
+      "alan_yuzde": 17.282
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.4389,
+      "parca": "hood",
+      "ortusme": 0.9338,
+      "alan_yuzde": 0.887
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.4198,
+      "parca": "front_bumper",
+      "ortusme": 1.0,
+      "alan_yuzde": 0.049
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.3309,
+      "parca": "front_bumper",
+      "ortusme": 1.0,
+      "alan_yuzde": 0.092
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.2699,
+      "parca": "hood",
+      "ortusme": 1.0,
+      "alan_yuzde": 0.098
+     }
+    ],
+    "parcalar": [
+     "front_bumper",
+     "front_glass",
+     "front_right_light",
+     "hood",
+     "left_mirror",
+     "right_mirror"
+    ]
+   },
+   {
+    "dosya": "1761133610501428962-11.jpg",
+    "aci_tr": "Ön sağ çeyrek",
+    "aci_en": "Front right quarter",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Gocuk",
+      "guven": 0.9438,
+      "parca": "front_left_light",
+      "ortusme": 0.9504,
+      "alan_yuzde": 1.325
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.5648,
+      "parca": "front_left_light",
+      "ortusme": 0.9982,
+      "alan_yuzde": 0.153
+     }
+    ],
+    "parcalar": [
+     "back_left_door",
+     "back_right_door",
+     "front_bumper",
+     "front_glass",
+     "front_left_light",
+     "front_right_door",
+     "front_right_light",
+     "hood",
+     "left_mirror",
+     "right_mirror",
+     "wheel"
+    ]
+   }
+  ]
+ }
+]
