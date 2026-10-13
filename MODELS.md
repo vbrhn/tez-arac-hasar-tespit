@@ -1,3 +1,5 @@
+***Türkçe** · [English](MODELS.en.md)*
+
 # Model Kartı
 
 Otomatik araç hasar tespit sistemi — eğitilmiş model ağırlıkları, eğitim

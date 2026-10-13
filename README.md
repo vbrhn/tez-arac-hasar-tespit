@@ -1,3 +1,5 @@
+***Türkçe** · [English](README.en.md)*
+
 # Sigorta Sektöründe Derin Öğrenme Tabanlı Otomatik Araç Hasar Tespit Sistemi
 
 İki aşamalı YOLOv11-seg mimarisi ile araç dış yüzeyindeki hasarların otomatik
@@ -112,8 +114,8 @@ tamamı `metrik_toplayici.ipynb` ile Drive'dan toplanabilir.
 
 ```
 .
-├── README.md                              bu dosya
-├── MODELS.md                              model kartı: tüm metrikler ve sınırlılıklar
+├── README.md / README.en.md               bu dosya
+├── MODELS.md / MODELS.en.md               model kartı: tüm metrikler ve sınırlılıklar
 ├── requirements.txt                       bağımlılıklar
 ├── predict.py                             tek komutluk çıkarım scripti
 ├── .gitignore
@@ -147,7 +149,7 @@ yeniden adlandırılmıştır. Özgün dosya adları sürüm numaralarıyla uyu�
 ## 4. Kurulum
 
 ```bash
-git clone https://github.com/<kullanici>/tez-arac-hasar-tespit.git
+git clone https://github.com/vbrhn/tez-arac-hasar-tespit.git
 cd tez-arac-hasar-tespit
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
