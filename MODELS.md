@@ -32,7 +32,7 @@ Ağırlıklar GitHub dosya boyutu sınırları nedeniyle depoda tutulmamaktadır
 | Kaynak | Bağlantı |
 |---|---|
 | Google Drive | https://drive.google.com/file/d/1v6NTyWzOUKCavj1FhO_DHnj-HExDIn32/view?usp=sharing |
-https://drive.google.com/file/d/1v6NTyWzOUKCavj1FhO_DHnj-HExDIn32/view?usp=sharing
+
 
 ---
 
