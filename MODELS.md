@@ -118,9 +118,8 @@ Devam eğitiminde öğrenme oranının 0.001 yerine 0.0004 seçilmesi, önceden
 öğrenilmiş temsillerin büyük gradyan adımlarıyla bozulmasını (catastrophic
 forgetting) önlemek içindir.
 
-**Not.** Devam eğitiminin ilk devrinde maske mAP@50 sıfır ölçülmüştür; aşama 1
-`best.pt` dosyasındaki maske başlığı NaN taşmasından etkilenmiştir. Maske
-başlığı sıfırdan yeniden öğrenmiş, 33. devirde önceki en iyi değeri geçmiştir.
+**Not.** Devam eğitiminin (`hasar_yolo11l-seg_v6_fp32/results.csv`) ilk
+devrinde doğrulama maske mAP@50 0.544, son (70.) devrinde 0.723'tür.
 
 | Toplam eğitim süresi | ~60 saat (Google Colab Pro+) |
 |---|---|

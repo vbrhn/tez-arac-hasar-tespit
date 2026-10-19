@@ -122,9 +122,9 @@ The learning rate for the continuation was set to 0.0004 rather than 0.001 to
 avoid destroying the already-learned representations with large gradient steps
 (catastrophic forgetting).
 
-**Note.** Mask mAP@50 measured zero in the first epoch of the continuation: the
-mask head in the stage-1 `best.pt` had been affected by the NaN overflow. The
-mask head relearned from scratch and surpassed the previous best at epoch 33.
+**Note.** In the continuation run (`hasar_yolo11l-seg_v6_fp32/results.csv`)
+validation mask mAP@50 was 0.544 at the first epoch and 0.723 at the last
+(70th) epoch.
 
 | | |
 |---|---|
