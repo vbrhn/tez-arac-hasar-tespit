@@ -35,7 +35,7 @@ The system fuses two independent instance-segmentation models:
                     │  (YOLOv11m-seg)          │
                     └──────────────────────────┘
                                  │
-                                 │  overlap-ratio fusion (threshold = 0.38)
+                                 │  overlap-ratio fusion (threshold = 0.10)
                                  │
                     ┌──────────────────────────┐
      Input image ───┤                          │
@@ -48,18 +48,22 @@ The system fuses two independent instance-segmentation models:
 ```
 
 The damage mask produced by Model 2 is intersected with the part mask produced
-by Model 1. If the intersection area divided by the damage area exceeds 0.38,
-the damage is assigned to that part. A single damage instance may be assigned
-to more than one part — for example a scratch running across both the bumper
-and the fender.
+by Model 1. The overlap ratio is the intersection area divided by the damage
+area (not IoU, because a damage region is far smaller than a part). Each damage
+is assigned to the part with the highest overlap; if that ratio is below 0.10,
+the location is reported as undetermined. The combined score is the product of
+the damage and part confidences, multiplied by 0.5 when no part can be
+assigned.
 
 ---
 
 ## 2. Results
 
-### 2.1 Final model — Model 2 (damage), held-out test set
+### 2.1 Final model — Model 2 (damage), test set
 
-Measured on 2,214 images / 4,458 instances.
+Measured on 2,214 test tiles / 4,458 damage instances. Because the data was
+split after tiling, the test set is not fully independent at image level (see
+Section 7).
 
 | Metric | Box | Mask |
 |---|---|---|
@@ -97,15 +101,23 @@ conclusion that the model has not overfitted to the validation set.
 |---|---|---|
 | Model | YOLOv11-Medium | YOLOv11-Large |
 | Resolution | 640 px | 960 px |
-| Epochs | 60 | 150 + 70 (fp32 continuation) |
+| Epochs | 60 | 82 (fp16) + 70 (fp32 continuation) = 152 |
 | Mask mAP@50 | 0.4325 | **0.7238** |
-| Precision | 0.5290 | 0.7544 |
-| Recall | 0.4513 | 0.6563 |
+| Box precision | 0.5290 | 0.7475 |
+| Box recall | 0.4513 | 0.6734 |
 
-The full ablation table, including the intermediate versions (V1: data cleaning
-and perceptual-hash deduplication, V2: overlapping tiling), is Table 7 of the
-thesis. All metric files can be collected from Google Drive with
-`metrik_toplayici.ipynb`.
+Ablation including the intermediate versions (Table 7 of the thesis):
+
+| Version | Change | Box mAP@50 | Mask mAP@50 |
+|---|---|---|---|
+| V0 | YOLOv11m-seg, 640 px, 60 epochs, no tiling | 0.4768 | 0.4325 |
+| V1 | 960 px + 2×2 overlapping tiling, 45 epochs | 0.6152 | 0.5918 |
+| V2 | 120 epochs + damage-free tile ratio 10% → 25% | 0.7101 | 0.6894 |
+| V3 | External data (Dent only), class-definition fix, YOLOv11l-seg, fp32 | 0.7422 | 0.7238 |
+
+Each version was split on its own data pool, so differences between versions
+are indicative. Per-class metrics were not recorded for V0. All metric files
+can be collected from Google Drive with `metrik_toplayici.ipynb`.
 
 ### 2.4 Cross-validation
 
@@ -198,13 +210,13 @@ python predict.py \
 python predict.py --image sample.jpg --no-parts
 ```
 
-Example output (the script prints in Turkish; `guven` = confidence,
-`parca` = part, `ortusme` = overlap):
+Example output (the script prints in Turkish; `güven` = confidence,
+`parça` = part, `örtüşme` = overlap, `Göçük` = dent, `Çizik` = scratch):
 
 ```
 sample.jpg
-  [1] Gocuk  guven=0.87  parca=sol_on_kapi (ortusme=0.74)
-  [2] Cizik  guven=0.61  parca=sol_on_camurluk (ortusme=0.52)
+  [1] Göçük  güven=0.87  parça=hood (örtüşme=0.74)
+  [2] Çizik  güven=0.61  parça=front_bumper (örtüşme=0.52)
 ```
 
 ### From Python
@@ -250,9 +262,10 @@ os.environ["ROBOFLOW_API_KEY"] = userdata.get("ROBOFLOW_API_KEY")
 
 ### Hardware
 
-Training was carried out on Google Colab Pro+. Total training time for the
-final model is approximately 60 hours (150 epochs fp16 + 70 epochs fp32
-continuation).
+Training was carried out on Google Colab Pro+ with an NVIDIA A100 (80 GB). The
+final model was trained in two stages: epochs 1–82 in fp16, then epochs 83–152
+as an fp32 continuation (`amp=False`, `lr0=0.0004`) from the best epoch-82
+weights.
 
 ---
 
@@ -266,12 +279,17 @@ short:
    versions, so the test sets are not identical across versions. Comparisons in
    the ablation table should therefore be read as indicative rather than
    controlled.
-2. **Domain shift.** Performance drops when external data from heterogeneous
+2. **Tile-level split.** The data was split after tiling, so tiles derived from
+   the same source image as a test tile may appear in the training or
+   validation set; the test set is not fully independent at image level.
+3. **Domain shift.** Performance drops when external data from heterogeneous
    sources is added (see `05_alan_kaymasi_denemesi.ipynb`).
-3. **Scratch class.** The weakest class (0.6381); fine scratches disappear at
+4. **Scratch class.** The weakest class (0.6381); fine scratches disappear at
    low resolution.
-4. **fp16 numerical instability.** Mask-loss overflow was observed under mixed
-   precision; the final training run was completed in fp32 (`amp=False`).
+5. **fp16 numerical instability.** Under mixed precision the mask loss became
+   undefined (NaN) at epoch 83, most likely because very small values were
+   rounded to zero in fp16 (underflow). Training was completed in fp32
+   (`amp=False`).
 
 ---
 

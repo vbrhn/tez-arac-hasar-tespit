@@ -20,7 +20,7 @@ from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table,
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-SONUC = pathlib.Path('/mnt/user-data/outputs/kullanici_sonuc')
+SONUC = pathlib.Path(os.environ.get('CIKTI_DIZINI', 'kullanici_sonuc'))
 CIK   = SONUC
 
 SINIF = {'TR': {'Cizik': 'Çizik', 'Gocuk': 'Göçük', 'Kirik': 'Kırık'},
@@ -63,10 +63,6 @@ M = {
   m_map='Hasar Modeli mAP@50 (test)', m_sure='Çıkarım Süresi',
   m_esik='Füzyon Örtüşme Eşiği', m_coz='Çıkarım Çözünürlüğü',
   s_not='AÇIKLAMALAR',
-  not_gdpr='<b>Kişisel veri:</b> Fotoğraflardaki araç plakaları, kişisel verilerin '
-           'korunması gereği bulanıklaştırılmıştır. Bulanıklaştırma analiz sonrası '
-           'değil, model çalıştırılmadan ÖNCE uygulanmıştır; dolayısıyla tespit '
-           'sonuçları da bu hâli üzerinden üretilmiştir.',
   yasal='<b>ÖNEMLİ AÇIKLAMA:</b> Bu rapor yapay zekâ tabanlı görüntü analiz sistemi '
         'tarafından otomatik olarak üretilmiştir ve <b>ön değerlendirme</b> '
         'niteliğindedir. Nihai hasar tespiti, onarım kapsamı ve tazminat tutarı '
@@ -95,10 +91,6 @@ M = {
   m_map='Damage Model mAP@50 (test)', m_sure='Inference Time',
   m_esik='Fusion Overlap Threshold', m_coz='Inference Resolution',
   s_not='NOTES',
-  not_gdpr='<b>Personal data:</b> Vehicle registration plates in the photographs have '
-           'been pixelated for data-protection reasons. Pixelation was applied BEFORE '
-           'the models were run, not afterwards; the detection results were therefore '
-           'produced from the redacted images.',
   yasal='<b>IMPORTANT NOTICE:</b> This report was generated automatically by an '
         'AI-based image analysis system and constitutes a <b>preliminary assessment</b>. '
         'The final damage assessment, repair scope and settlement amount are determined '
@@ -110,7 +102,7 @@ M = {
 
 SISTEM = dict(parca='YOLOv11m-seg (Carparts-Seg)',
               hasar='YOLOv11l-seg (v6, fp32)',
-              map50='0.7238', sure='8.84 ms', esik='0.38', coz='960 px')
+              map50='0.7238', sure='8.84 ms', esik='0.10', coz='960 px')
 
 LACI, GRI, CIZGI = colors.HexColor('#1e40af'), colors.HexColor('#f8fafc'), colors.HexColor('#cbd5e1')
 
@@ -305,8 +297,6 @@ def coklu_rapor(veri, dil, dosya, belge_no=None):
     st.append(ts)
 
     st.append(Paragraph(T['s_not'], S['h']))
-    st.append(Paragraph(T['not_gdpr'], S['k']))
-    st.append(Spacer(1, 7))
     st.append(Paragraph(T['yasal'], S['k']))
 
     doc.build(st, onFirstPage=dipnot, onLaterPages=dipnot)

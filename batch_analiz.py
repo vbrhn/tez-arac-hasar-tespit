@@ -2,9 +2,8 @@
 """
 Kullanicinin verdigi 13 fotograf icin:
   1. Iki asamali cikarim (hasar + parca) ve fuzyon
-  2. Plaka bulaniklastirma (GDPR — herkese acik depoya gidiyor)
-  3. Maskelenmis gorseller: TR ve EN etiketli
-  4. Sonuclari JSON'a yaz (rapor uretici bunu kullanacak)
+  2. Isaretlenmis gorseller: TR ve EN etiketli
+  3. Sonuclari JSON'a yaz (rapor uretici bunu kullanacak)
 """
 import json, pathlib, warnings, pickle
 warnings.filterwarnings('ignore')
@@ -12,16 +11,17 @@ import numpy as np, cv2
 from shapely.geometry import Polygon
 from ultralytics import YOLO
 
-KAYNAK = pathlib.Path('/home/claude/kullanici_foto')
-CIK    = pathlib.Path('/mnt/user-data/outputs/kullanici_sonuc')
+import os
+KAYNAK = pathlib.Path(os.environ.get('FOTO_DIZINI', 'kullanici_foto'))      # ham fotograflar
+CIK    = pathlib.Path(os.environ.get('CIKTI_DIZINI', 'kullanici_sonuc'))    # ciktilar
 (CIK / 'maskeli_TR').mkdir(parents=True, exist_ok=True)
 (CIK / 'maskeli_EN').mkdir(parents=True, exist_ok=True)
 
-UP = pathlib.Path('/mnt/user-data/uploads')
-HASAR = YOLO(str(UP / 'Downloads/model2_hasar_nihai_yolo11l-seg_fp32.pt'))
-PARCA = YOLO(str(UP / 'Downloads/model1_parca_konum_yolo11m-seg.pt'))
+MODEL_DIZINI = pathlib.Path(os.environ.get('MODEL_DIZINI', 'models'))
+HASAR = YOLO(str(MODEL_DIZINI / 'model2_hasar_nihai_yolo11l-seg_fp32.pt'))
+PARCA = YOLO(str(MODEL_DIZINI / 'model1_parca_konum_yolo11m-seg.pt'))
 
-CONF, IOU, IMGSZ, ESIK = 0.25, 0.45, 960, 0.38
+CONF, IOU, IMGSZ, ESIK = 0.25, 0.45, 960, 0.10   # ESIK: fuzyon ortusme esigi (tez, Bolum 3.3.3)
 
 SINIF = {'TR': {'Cizik': 'Çizik', 'Gocuk': 'Göçük', 'Kirik': 'Kırık'},
          'EN': {'Cizik': 'Scratch', 'Gocuk': 'Dent', 'Kirik': 'Crack'}}
@@ -70,29 +70,6 @@ ARACLAR = [
       aci_tr=['Arka', 'Ön', 'Ön sağ çeyrek'],
       aci_en=['Rear', 'Front', 'Front right quarter']),
 ]
-
-# ── PLAKA BÖLGELERİ (normalize x1,y1,x2,y2) — GDPR için bulanıklaştırılır ──
-PLAKA = {
- '17606914461334369139-2.jpg': [(0.345, 0.750, 0.660, 0.870)],
- '17606914461334369139-3.jpg': [(0.730, 0.645, 0.900, 0.800)],
- '1761133610501428962-2.jpg':  [(0.350, 0.590, 0.655, 0.690)],
- '1761133610501428962-5.jpg':  [(0.325, 0.880, 0.710, 0.980)],
- '1761133610501428962-11.jpg': [(0.740, 0.690, 0.930, 0.795)],
-}
-
-def plaka_gizle(im, ad):
-    for (a, b, c, d) in PLAKA.get(ad, []):
-        H, W = im.shape[:2]
-        x1, y1, x2, y2 = int(a*W), int(b*H), int(c*W), int(d*H)
-        roi = im[y1:y2, x1:x2]
-        if roi.size == 0:
-            continue
-        k = max(3, (x2-x1)//12)
-        kucuk = cv2.resize(roi, (max(1,(x2-x1)//k), max(1,(y2-y1)//k)),
-                           interpolation=cv2.INTER_LINEAR)
-        im[y1:y2, x1:x2] = cv2.resize(kucuk, (x2-x1, y2-y1),
-                                      interpolation=cv2.INTER_NEAREST)
-    return im
 
 # ── Geometri ───────────────────────────────────────────────────────────────
 def poly(xy):
@@ -167,7 +144,6 @@ for arac in ARACLAR:
     for j, ad in enumerate(arac['foto']):
         yol = KAYNAK / ad
         im = cv2.imread(str(yol))
-        im = plaka_gizle(im, ad)
         H, W = im.shape[:2]
 
         rh = HASAR.predict(im, conf=CONF, iou=IOU, imgsz=IMGSZ,
@@ -221,5 +197,4 @@ print('\n' + '=' * 78)
 n_h = sum(len(f['hasarlar']) for a in tum for f in a['sonuc'])
 print(f'{len(ARACLAR)} araç, {sum(len(a["foto"]) for a in ARACLAR)} fotoğraf, '
       f'{n_h} hasar örneği')
-print(f'Plaka bulanıklaştırılan: {len(PLAKA)} fotoğraf')
 print(f'Çıktı: {CIK}')

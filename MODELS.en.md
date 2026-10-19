@@ -56,17 +56,23 @@ assigns them to one of three classes.
 
 | | Value |
 |---|---|
-| Training images | 15,490 |
-| Split ratio | 70% / 15% / 15% |
-| Test images | 2,214 (4,458 instances) |
+| Training tiles | 15,490 |
+| Validation tiles | 4,426 |
+| Test tiles | 2,214 (4,458 damage instances) |
+| Split ratio | 70% / 20% / 10% (`seed=42`), after tiling |
 | Share of own (original) data | 79% |
 | External source | Roboflow `cocotoyolo-cmnax/damage_2-w8sdi` (dent class only) |
 
 Data preparation steps:
 
 - **Perceptual-hash deduplication** (dHash, Hamming distance ≤ 3)
-- **Overlapping tiling** — 2×2 grid, 20% overlap, polygon clipping with
-  Shapely; 5,163 → 24,568 instances (4.8× increase)
+- **Overlapping tiling** — 2×2 grid; tile size is the grid step plus 20%
+  (a 614 px tile for a 1024 px image, ~204 px ≈ 33% overlap between
+  neighbours). Polygons are clipped with Shapely; polygons keeping less than
+  30% of their original area are dropped. 7,302 source images → 23,863 tiles.
+- **Small-annotation filter** — polygons smaller than 0.04% of the image area
+  (Shoelace area) are removed.
+- **Damage-free tile ratio** — 25% (10% in early experiments)
 - **Oversampling** — minority classes duplicated to disk with an `OS` prefix
 
 The `scratch` and `crack` definitions in the external dataset conflicted with
@@ -76,23 +82,24 @@ the external source; only the `dent` → `Gocuk` mapping was used.
 ### 2.3 Training conditions
 
 Training was done in two stages. The first stage was planned for 150 epochs in
-fp16; a NaN overflow appeared in the mask loss at epoch 83, and training was
-resumed in fp32 from the `best.pt` of epoch 82.
+fp16; the mask loss became undefined (NaN) at epoch 83, and training was
+continued in fp32 for 70 more epochs from the `best.pt` of epoch 82 (152
+epochs in total).
 
 | Parameter | Stage 1 (fp16) | Stage 2 (fp32) |
 |---|---|---|
 | Starting weights | `yolo11l-seg.pt` (COCO) | stage-1 `best.pt` (epoch 82) |
-| Epochs | 150 (stopped at 83) | 70 |
+| Epochs | 1–82 (150 planned, stopped at 83) | 83–152 (70 epochs) |
 | `amp` | `True` | **`False`** |
 | `lr0` | 0.001 | 0.0004 |
 | `lrf` | 0.01 | 0.01 |
 | Optimizer | AdamW | AdamW |
 | `cos_lr` | `True` | `True` |
-| `warmup_epochs` | 3.0 | 2.0 |
+| `warmup_epochs` | 5.0 | 2.0 |
 | Image size | 960 | 960 |
 | Batch size | 6 | 6 |
-| `patience` | 35 | 35 |
-| `close_mosaic` | 20 | 20 |
+| `patience` | 45 | 35 |
+| `close_mosaic` | 20 (never reached) | 20 |
 
 Augmentation (identical in both stages):
 
@@ -105,10 +112,11 @@ scale=0.4     translate=0.1 erasing=0.2
 
 Loss weights: `box=8.0`, `cls=0.5`, `dfl=1.5`
 
-**Why fp32.** The lower bound of fp16 is about 10⁻⁸, that of fp32 about 10⁻³⁸.
-When very small intermediate values arise in the mask-loss computation, fp16
-underflows and produces NaN. `amp=False` removes that risk at the cost of
-roughly 1.6× slower training.
+**Why fp32.** The smallest positive value representable in fp16 is about
+6×10⁻⁸, in fp32 about 10⁻⁴⁵. When very small intermediate values in the
+mask-loss computation are rounded to zero in fp16 (underflow), the division
+that follows becomes undefined and produces NaN. `amp=False` removes that risk
+at the cost of slower training.
 
 The learning rate for the continuation was set to 0.0004 rather than 0.001 to
 avoid destroying the already-learned representations with large gradient steps
@@ -123,9 +131,10 @@ mask head relearned from scratch and surpassed the previous best at epoch 33.
 | Total training time | ~60 hours (Google Colab Pro+) |
 | Parameters | 27,586,905 |
 
-### 2.4 Evaluation — held-out test set
+### 2.4 Evaluation — test set
 
-2,214 images / 4,458 instances.
+2,214 tiles / 4,458 damage instances. Because the test set was separated at tile
+level, it is not fully independent at image level (see 6.1).
 
 | Metric | Box | Mask |
 |---|---|---|
@@ -172,7 +181,8 @@ smaller data pool and for fewer epochs.
 |---|---|
 | Architecture | YOLOv11m-seg |
 | Dataset | Carparts-Seg |
-| Image size | 960 px |
+| Training resolution | 640 px |
+| Classes | 23 Carparts-Seg classes; mapped to Turkish part names in the report |
 | Role | Determining which vehicle part the damage lies on |
 
 Validation set:
@@ -198,30 +208,36 @@ With `H` the damage mask and `P` the part mask, the overlap ratio is:
 overlap(H, P) = area(H ∩ P) / area(H)
 ```
 
-Every part with `overlap ≥ 0.38` is assigned to that damage. The threshold was
-chosen on the validation set to balance part-assignment accuracy against the
-number of spurious assignments.
+Each damage is assigned to the part with the highest overlap. If that ratio is
+below the operational threshold of 0.10, the damage is reported with
+`parca=None` (location undetermined). The ratio is used instead of IoU because
+of the scale difference: a part covers tens of thousands of pixels while a
+damage covers a few thousand, so even a correct match yields an IoU of ~0.02.
 
-A damage instance may be assigned to several parts. If no part clears the
-threshold, the damage is reported with `parca=None`.
+Combined score = damage confidence × part confidence, multiplied by 0.5 when no
+part can be assigned. It is an operational score reflecting agreement between
+the two models, not a calibrated probability.
 
 ---
 
 ## 5. Ablation
 
-| Version | Change | Mask mAP@50 |
-|---|---|---|
-| V0 | Architecture selection — YOLOv11m-seg, 640 px, 60 epochs | 0.4325 |
-| V1 | Data cleaning, deduplication | Table 7 of the thesis |
-| V2 | 960 px + overlapping tiling | Table 7 of the thesis |
-| V3 | YOLOv11l-seg, fp32 continuation | **0.7238** |
+| Version | Change | Box mAP@50 | Mask mAP@50 |
+|---|---|---|---|
+| V0 | Architecture selection — YOLOv11m-seg, 640 px, 60 epochs, no tiling | 0.4768 | 0.4325 |
+| V1 | 960 px + 2×2 overlapping tiling, 45 epochs | 0.6152 | 0.5918 |
+| V2 | 120 epochs + damage-free tile ratio 10% → 25% | 0.7101 | 0.6894 |
+| V3 | External data (Dent only), class-definition fix, YOLOv11l-seg, fp32 | 0.7422 | **0.7238** |
+
+Between V2 and V3 the data, the class set, the architecture and the numeric
+precision all changed together, so the gain of that step cannot be attributed
+to a single factor.
 
 For V0, precision is 0.5290 and recall 0.4513. Per-class metrics were not
 recorded in the V0 run (the `sinif_mAP50` field was not written at that time),
 so no class breakdown is available.
 
-The numeric values for the intermediate versions are given in Table 7 of the
-thesis; `metrik_toplayici.ipynb` collects every metric JSON file from Drive
+The table matches Table 7 of the thesis; `metrik_toplayici.ipynb` collects every metric JSON file from Drive
 into a single zip.
 
 ---
@@ -239,6 +255,10 @@ version's training set, and the class distributions of the splits differ.
 Consequence: the version comparisons in the ablation table are **indicative**,
 not a controlled comparison on a fixed test set. The final model's (V3) figures
 on its own test set remain valid.
+
+In addition, because the split was made after tiling, tiles derived from the
+same source image as a test tile may be in the training or validation set; the
+test set is not fully independent at image level.
 
 This could not be corrected retroactively; retraining every version on a single
 fixed split would require more than 60 hours of additional compute.
@@ -260,7 +280,7 @@ cracks are the most visually distinct damage type.
 
 ### 6.4 Background false positives
 
-Background was marked as damage in 1,336 test-set cases. Reflections, shadows
+On the test set (confidence 0.25, IoU 0.45), 1,336 detections were produced on damage-free regions. Reflections, shadows
 and dirt are the main sources. In an insurance setting this means a human
 adjuster must verify the output; the system is decision support, not an
 autonomous decision maker.
@@ -287,9 +307,6 @@ mobile devices has not been verified.
 The system is designed as **decision support** within the insurance adjustment
 process. It is not intended to decide claims automatically; its outputs must be
 verified by a qualified adjuster.
-
-The training images show vehicle exteriors; frames containing license plates or
-identifiable people were removed during data preparation.
 
 ---
 

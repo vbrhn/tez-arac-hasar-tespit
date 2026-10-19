@@ -10,7 +10,8 @@ Tek komutluk çıkarım scripti.
     Füzyon                  -> hangi hasar hangi parçada
 
 Örtüşme oranı, hasar poligonunun parça poligonu ile kesişim alanının hasar
-alanına bölümüdür. Oran eşiği (varsayılan 0.38) aşan her parça o hasara atanır.
+alanına bölümüdür. Hasar, en yüksek örtüşmeyi veren parçaya atanır; bu oran
+eşiğin (varsayılan 0.10) altında kalırsa konum belirsiz olarak raporlanır.
 
 Kullanım:
     python predict.py --image ornek.jpg
@@ -48,7 +49,7 @@ VARSAYILAN_HASAR_MODEL = "models/model2_hasar_nihai_yolo11l-seg_fp32.pt"
 VARSAYILAN_GUVEN = 0.25          # Ultralytics conf
 VARSAYILAN_IOU = 0.45            # NMS IoU
 VARSAYILAN_IMGSZ = 960           # eğitimdeki çözünürlük
-VARSAYILAN_ORTUSME_ESIGI = 0.38  # tezde kalibre edilen füzyon eşiği
+VARSAYILAN_ORTUSME_ESIGI = 0.10  # tezde kullanılan operasyonel füzyon eşiği (Bölüm 3.3.3)
 
 DESTEKLENEN_UZANTILAR = {".jpg", ".jpeg", ".png", ".bmp", ".webp", ".tif", ".tiff"}
 
@@ -59,6 +60,9 @@ SINIF_RENKLERI = {
     "Kirik": (90, 90, 245),
 }
 VARSAYILAN_RENK = (200, 200, 200)
+
+# Model sınıf adları ASCII'dir (Cizik/Gocuk/Kirik); ekranda Türkçe gösterilir.
+GORUNEN_AD = {"Cizik": "Çizik", "Gocuk": "Göçük", "Kirik": "Kırık"}
 PARCA_RENGI = (170, 170, 170)
 
 
@@ -463,11 +467,11 @@ def main(argv: list[str] | None = None) -> int:
             print("  hasar bulunamadı")
         else:
             for sira, h in enumerate(sonuc["hasarlar"], 1):
-                satir = f"  [{sira}] {h['sinif']:<6} guven={h['guven']:.2f}"
+                satir = f"  [{sira}] {GORUNEN_AD.get(h['sinif'], h['sinif']):<6} güven={h['guven']:.2f}"
                 if h["parca"]:
-                    satir += f"  parca={h['parca']} (ortusme={h['parca_ortusmesi']:.2f})"
+                    satir += f"  parça={h['parca']} (örtüşme={h['parca_ortusmesi']:.2f})"
                 elif sistem.parca_modeli is not None:
-                    satir += "  parca=belirlenemedi"
+                    satir += "  parça=belirsiz"
                 print(satir)
 
         if cikti_dizini:

@@ -30,7 +30,7 @@ füzyonundan oluşur:
                     │  (YOLOv11m-seg)         │
                     └─────────────────────────┘
                                  │
-                                 │  örtüşme oranı füzyonu (eşik = 0,38)
+                                 │  örtüşme oranı füzyonu (eşik = 0,10)
                                  │
                     ┌─────────────────────────┐
    Giriş görüntüsü ─┤                         │
@@ -43,17 +43,21 @@ füzyonundan oluşur:
 ```
 
 Model 2'nin ürettiği hasar maskesi ile Model 1'in ürettiği parça maskesi
-kesiştirilir. Kesişim alanının hasar maskesine oranı 0,38 eşiğini aşarsa hasar
-o parçaya atanır. Bir hasar birden fazla parçaya atanabilir (örn. tampon ile
-çamurluk arasına yayılan çizik).
+kesiştirilir. Örtüşme oranı, kesişim alanının hasar maskesinin alanına
+bölümüdür (IoU değil; hasar parçadan çok küçük olduğu için). Hasar, en yüksek
+örtüşmeyi veren parçaya atanır; bu oran 0,10 eşiğinin altında kalırsa konum
+belirsiz olarak raporlanır. Birleşik skor, hasar ve parça güvenlerinin
+çarpımıdır; parça ataması yapılamayan tespitlerde 0,5 katsayısıyla çarpılır.
 
 ---
 
 ## 2. Sonuçlar
 
-### 2.1 Nihai model — Model 2 (hasar), bağımsız test kümesi
+### 2.1 Nihai model — Model 2 (hasar), test kümesi
 
-2.214 görüntü / 4.458 örnek üzerinde ölçülmüştür.
+2.214 test kutucuğu / 4.458 hasar örneği üzerinde ölçülmüştür. Veri bölme
+kutucuklamadan sonra yapıldığı için test kümesi görüntü düzeyinde tam bağımsız
+değildir (bkz. Bölüm 7).
 
 | Metrik | Kutu (Box) | Maske (Mask) |
 |---|---|---|
@@ -91,13 +95,22 @@ modelin doğrulama kümesine aşırı uyum göstermediğini destekler.
 |---|---|---|
 | Model | YOLOv11-Medium | YOLOv11-Large |
 | Çözünürlük | 640 px | 960 px |
-| Devir | 60 | 150 + 70 (fp32 devam) |
+| Devir | 60 | 82 (fp16) + 70 (fp32 devam) = 152 |
 | Maske mAP@50 | 0.4325 | **0.7238** |
-| Kesinlik | 0.5290 | 0.7544 |
-| Duyarlılık | 0.4513 | 0.6563 |
+| Kutu kesinliği | 0.5290 | 0.7475 |
+| Kutu duyarlılığı | 0.4513 | 0.6734 |
 
-Ara sürümler (V1: veri temizliği ve yineleme eleme, V2: örtüşmeli kutucuklama)
-dâhil tam ablasyon tablosu tezin Tablo 7'sindedir. Metrik dosyalarının
+Ara sürümlerle birlikte ablasyon (tezde Tablo 7):
+
+| Sürüm | Değişiklik | Kutu mAP@50 | Maske mAP@50 |
+|---|---|---|---|
+| V0 | YOLOv11m-seg, 640 px, 60 devir, kutucuklama yok | 0.4768 | 0.4325 |
+| V1 | 960 px + 2×2 örtüşmeli kutucuklama, 45 devir | 0.6152 | 0.5918 |
+| V2 | 120 devir + hasarsız kutucuk oranı %10 → %25 | 0.7101 | 0.6894 |
+| V3 | Harici veri (yalnızca Göçük), sınıf tanımı düzeltmesi, YOLOv11l-seg, fp32 | 0.7422 | 0.7238 |
+
+Her sürüm kendi veri havuzu üzerinde bölündüğü için sürümler arası farklar
+göstergeseldir. V0'da sınıf bazında ölçüm kaydedilmemiştir. Metrik dosyalarının
 tamamı `metrik_toplayici.ipynb` ile Drive'dan toplanabilir.
 
 ### 2.4 Çapraz doğrulama
@@ -193,9 +206,11 @@ python predict.py --image ornek.jpg --no-parts
 
 ```
 ornek.jpg
-  [1] Gocuk  guven=0.87  parca=sol_on_kapi (ortusme=0.74)
-  [2] Cizik  guven=0.61  parca=sol_on_camurluk (ortusme=0.52)
-  2 hasar bulundu — sonuclar/ornek_sonuc.jpg
+  [1] Göçük  güven=0.87  parça=hood (örtüşme=0.74)
+  [2] Çizik  güven=0.61  parça=front_bumper (örtüşme=0.52)
+  -> sonuclar/ornek_sonuc.jpg
+
+1 görüntü işlendi, toplam 2 hasar tespit edildi.
 ```
 
 ### Python'dan
@@ -238,8 +253,9 @@ os.environ["ROBOFLOW_API_KEY"] = userdata.get("ROBOFLOW_API_KEY")
 
 ### Donanım
 
-Eğitim Google Colab Pro+ üzerinde yapılmıştır. Nihai modelin toplam eğitim
-süresi yaklaşık 60 saattir (150 devir fp16 + 70 devir fp32 devam eğitimi).
+Eğitim Google Colab Pro+ üzerinde, NVIDIA A100 (80 GB) ile yapılmıştır. Nihai
+model iki aşamada eğitilmiştir: 1–82. devirler fp16, 83–152. devirler 82.
+devrin en iyi ağırlığından fp32 (`amp=False`, `lr0=0.0004`) devam eğitimi.
 
 ---
 
@@ -252,12 +268,18 @@ Ayrıntılar için [MODELS.md](MODELS.md) → "Sınırlılıklar" bölümüne ba
    çalıştırıldığı için (`seed=42` sabit olmasına rağmen havuz değiştiğinden)
    test kümeleri sürümler arasında birebir aynı değildir. Ablasyon tablosundaki
    karşılaştırmalar bu nedenle göstergesel kabul edilmelidir.
-2. **Alan kayması** — farklı kaynaklardan gelen harici veri eklendiğinde
+2. **Kutucuk düzeyinde bölme** — veri, kutucuklamadan sonra bölündüğü için bir
+   test kutucuğunun aynı kaynak görüntüden türeyen komşuları eğitim ya da
+   doğrulama kümesinde bulunabilir; test kümesi görüntü düzeyinde tam bağımsız
+   değildir.
+3. **Alan kayması** — farklı kaynaklardan gelen harici veri eklendiğinde
    başarım düşmektedir (bkz. `05_alan_kaymasi_denemesi.ipynb`).
-3. **Çizik sınıfı** — en düşük başarımlı sınıftır (0.6381); ince çizikler düşük
+4. **Çizik sınıfı** — en düşük başarımlı sınıftır (0.6381); ince çizikler düşük
    çözünürlükte kaybolmaktadır.
-4. **fp16 sayısal kararsızlığı** — karışık hassasiyetli eğitimde maske kaybı
-   taşması gözlenmiştir; nihai eğitim fp32 (`amp=False`) ile tamamlanmıştır.
+5. **fp16 sayısal kararsızlığı** — karışık hassasiyetli eğitimde 83. devirde
+   maske kaybı tanımsız (NaN) hâle gelmiştir; çok küçük değerlerin fp16'da sıfıra
+   yuvarlanmasından (alt taşma) kaynaklandığı değerlendirilmektedir. Eğitim fp32
+   (`amp=False`) ile tamamlanmıştır.
 
 ---
 
