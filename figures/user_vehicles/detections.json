@@ -33,37 +33,6 @@
     ],
     "hasarlar": [
      {
-      "ham": "Cizik",
-      "guven": 0.378,
-      "parca": "back_bumper",
-      "ortusme": 0.9958,
-      "alan_yuzde": 0.466
-     }
-    ],
-    "parcalar": [
-     "back_bumper",
-     "back_glass",
-     "back_left_door",
-     "back_left_light",
-     "back_right_door",
-     "back_right_light",
-     "front_left_door",
-     "front_right_door",
-     "right_mirror",
-     "trunk",
-     "wheel"
-    ]
-   },
-   {
-    "dosya": "242866_2.jpg",
-    "aci_tr": "Ön sağ çeyrek",
-    "aci_en": "Front right quarter",
-    "boyut": [
-     1600,
-     1200
-    ],
-    "hasarlar": [
-     {
       "ham": "Kirik",
       "guven": 0.8767,
       "parca": "front_bumper",
@@ -73,8 +42,8 @@
      {
       "ham": "Cizik",
       "guven": 0.3075,
-      "parca": null,
-      "ortusme": null,
+      "parca": "hood",
+      "ortusme": 0.3681,
       "alan_yuzde": 0.38
      }
     ],
@@ -90,9 +59,9 @@
     ]
    },
    {
-    "dosya": "242866_4.jpg",
-    "aci_tr": "Ön",
-    "aci_en": "Front",
+    "dosya": "242866_2.jpg",
+    "aci_tr": "Ön sağ çeyrek",
+    "aci_en": "Front right quarter",
     "boyut": [
      1600,
      1200
@@ -115,8 +84,8 @@
      {
       "ham": "Kirik",
       "guven": 0.6207,
-      "parca": null,
-      "ortusme": null,
+      "parca": "front_bumper",
+      "ortusme": 0.2197,
       "alan_yuzde": 0.935
      },
      {
@@ -139,6 +108,37 @@
      "front_glass",
      "front_left_light",
      "right_mirror",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "242866_4.jpg",
+    "aci_tr": "Ön",
+    "aci_en": "Front",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Cizik",
+      "guven": 0.378,
+      "parca": "back_bumper",
+      "ortusme": 0.9958,
+      "alan_yuzde": 0.466
+     }
+    ],
+    "parcalar": [
+     "back_bumper",
+     "back_glass",
+     "back_left_door",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "front_left_door",
+     "front_right_door",
+     "right_mirror",
+     "trunk",
      "wheel"
     ]
    }
@@ -178,32 +178,32 @@
     ],
     "hasarlar": [
      {
-      "ham": "Gocuk",
-      "guven": 0.6356,
-      "parca": "hood",
-      "ortusme": 0.993,
-      "alan_yuzde": 0.438
-     },
-     {
       "ham": "Kirik",
-      "guven": 0.5328,
+      "guven": 0.5762,
       "parca": "front_left_light",
-      "ortusme": 0.7172,
-      "alan_yuzde": 0.406
-     },
-     {
-      "ham": "Kirik",
-      "guven": 0.4907,
-      "parca": "front_bumper",
-      "ortusme": 0.8878,
-      "alan_yuzde": 1.485
+      "ortusme": 0.7237,
+      "alan_yuzde": 0.398
      },
      {
       "ham": "Gocuk",
-      "guven": 0.4707,
+      "guven": 0.5498,
       "parca": "hood",
-      "ortusme": 0.9548,
-      "alan_yuzde": 0.167
+      "ortusme": 0.992,
+      "alan_yuzde": 0.452
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.4971,
+      "parca": "front_bumper",
+      "ortusme": 0.8473,
+      "alan_yuzde": 1.508
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.4839,
+      "parca": "hood",
+      "ortusme": 0.9337,
+      "alan_yuzde": 0.174
      }
     ],
     "parcalar": [
@@ -227,38 +227,38 @@
     "hasarlar": [
      {
       "ham": "Kirik",
-      "guven": 0.7788,
+      "guven": 0.7779,
       "parca": "front_bumper",
-      "ortusme": 0.5688,
-      "alan_yuzde": 1.738
+      "ortusme": 0.5886,
+      "alan_yuzde": 1.753
      },
      {
       "ham": "Gocuk",
-      "guven": 0.6268,
-      "parca": null,
-      "ortusme": null,
-      "alan_yuzde": 1.062
+      "guven": 0.6295,
+      "parca": "front_bumper",
+      "ortusme": 0.1075,
+      "alan_yuzde": 1.044
      },
      {
       "ham": "Gocuk",
-      "guven": 0.5078,
+      "guven": 0.5492,
       "parca": "front_bumper",
-      "ortusme": 0.9931,
-      "alan_yuzde": 0.168
-     },
-     {
-      "ham": "Gocuk",
-      "guven": 0.4691,
-      "parca": "front_bumper",
-      "ortusme": 0.8622,
+      "ortusme": 0.8484,
       "alan_yuzde": 0.173
      },
      {
-      "ham": "Kirik",
-      "guven": 0.3471,
+      "ham": "Gocuk",
+      "guven": 0.5321,
       "parca": "front_bumper",
-      "ortusme": 0.9109,
-      "alan_yuzde": 3.424
+      "ortusme": 0.9935,
+      "alan_yuzde": 0.167
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.3667,
+      "parca": "front_bumper",
+      "ortusme": 0.7714,
+      "alan_yuzde": 3.274
      }
     ],
     "parcalar": [
@@ -291,8 +291,8 @@
      {
       "ham": "Gocuk",
       "guven": 0.3636,
-      "parca": null,
-      "ortusme": null,
+      "parca": "front_right_door",
+      "ortusme": 0.132,
       "alan_yuzde": 0.163
      }
     ],
@@ -343,38 +343,18 @@
      960,
      720
     ],
-    "hasarlar": [
-     {
-      "ham": "Gocuk",
-      "guven": 0.8488,
-      "parca": null,
-      "ortusme": null,
-      "alan_yuzde": 3.025
-     },
-     {
-      "ham": "Kirik",
-      "guven": 0.6136,
-      "parca": null,
-      "ortusme": null,
-      "alan_yuzde": 0.178
-     },
-     {
-      "ham": "Gocuk",
-      "guven": 0.5855,
-      "parca": "wheel",
-      "ortusme": 0.4258,
-      "alan_yuzde": 0.394
-     }
-    ],
+    "hasarlar": [],
     "parcalar": [
      "back_left_door",
-     "back_left_light",
      "back_right_door",
-     "back_right_light",
+     "front_bumper",
+     "front_glass",
+     "front_left_light",
      "front_right_door",
+     "front_right_light",
+     "hood",
      "left_mirror",
      "right_mirror",
-     "trunk",
      "wheel"
     ]
    },
@@ -388,7 +368,6 @@
     ],
     "hasarlar": [],
     "parcalar": [
-     "back_left_door",
      "back_right_door",
      "front_bumper",
      "front_glass",
@@ -405,28 +384,6 @@
     "dosya": "1760712142464517150-5.jpg",
     "aci_tr": "Ön sağ çeyrek",
     "aci_en": "Front right quarter",
-    "boyut": [
-     960,
-     720
-    ],
-    "hasarlar": [],
-    "parcalar": [
-     "back_right_door",
-     "front_bumper",
-     "front_glass",
-     "front_left_light",
-     "front_right_door",
-     "front_right_light",
-     "hood",
-     "left_mirror",
-     "right_mirror",
-     "wheel"
-    ]
-   },
-   {
-    "dosya": "1760712142464517150-8.jpg",
-    "aci_tr": "Arka sağ çeyrek",
-    "aci_en": "Rear right quarter",
     "boyut": [
      960,
      720
@@ -461,6 +418,49 @@
      "back_right_door",
      "back_right_light",
      "front_right_door",
+     "right_mirror",
+     "trunk",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "1760712142464517150-8.jpg",
+    "aci_tr": "Arka sağ çeyrek",
+    "aci_en": "Rear right quarter",
+    "boyut": [
+     960,
+     720
+    ],
+    "hasarlar": [
+     {
+      "ham": "Gocuk",
+      "guven": 0.8488,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 3.025
+     },
+     {
+      "ham": "Kirik",
+      "guven": 0.6136,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 0.178
+     },
+     {
+      "ham": "Gocuk",
+      "guven": 0.5855,
+      "parca": "wheel",
+      "ortusme": 0.4258,
+      "alan_yuzde": 0.394
+     }
+    ],
+    "parcalar": [
+     "back_left_door",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "front_right_door",
+     "left_mirror",
      "right_mirror",
      "trunk",
      "wheel"
@@ -502,99 +502,18 @@
     ],
     "hasarlar": [
      {
-      "ham": "Cizik",
-      "guven": 0.4529,
-      "parca": null,
-      "ortusme": null,
-      "alan_yuzde": 1.143
-     }
-    ],
-    "parcalar": [
-     "back_bumper",
-     "back_glass",
-     "back_left_light",
-     "back_right_door",
-     "back_right_light",
-     "trunk",
-     "wheel"
-    ]
-   },
-   {
-    "dosya": "1761133610501428962-5.jpg",
-    "aci_tr": "Ön",
-    "aci_en": "Front",
-    "boyut": [
-     1600,
-     1200
-    ],
-    "hasarlar": [
-     {
       "ham": "Gocuk",
-      "guven": 0.7626,
+      "guven": 0.9446,
       "parca": "hood",
-      "ortusme": 0.8425,
-      "alan_yuzde": 17.282
+      "ortusme": 0.6233,
+      "alan_yuzde": 1.332
      },
      {
       "ham": "Cizik",
-      "guven": 0.4389,
+      "guven": 0.5738,
       "parca": "hood",
-      "ortusme": 0.9338,
-      "alan_yuzde": 0.887
-     },
-     {
-      "ham": "Cizik",
-      "guven": 0.4198,
-      "parca": "front_bumper",
-      "ortusme": 1.0,
-      "alan_yuzde": 0.049
-     },
-     {
-      "ham": "Cizik",
-      "guven": 0.3309,
-      "parca": "front_bumper",
-      "ortusme": 1.0,
-      "alan_yuzde": 0.092
-     },
-     {
-      "ham": "Cizik",
-      "guven": 0.2699,
-      "parca": "hood",
-      "ortusme": 1.0,
-      "alan_yuzde": 0.098
-     }
-    ],
-    "parcalar": [
-     "front_bumper",
-     "front_glass",
-     "front_right_light",
-     "hood",
-     "left_mirror",
-     "right_mirror"
-    ]
-   },
-   {
-    "dosya": "1761133610501428962-11.jpg",
-    "aci_tr": "Ön sağ çeyrek",
-    "aci_en": "Front right quarter",
-    "boyut": [
-     1600,
-     1200
-    ],
-    "hasarlar": [
-     {
-      "ham": "Gocuk",
-      "guven": 0.9438,
-      "parca": "front_left_light",
-      "ortusme": 0.9504,
-      "alan_yuzde": 1.325
-     },
-     {
-      "ham": "Cizik",
-      "guven": 0.5648,
-      "parca": "front_left_light",
-      "ortusme": 0.9982,
-      "alan_yuzde": 0.153
+      "ortusme": 0.924,
+      "alan_yuzde": 0.154
      }
     ],
     "parcalar": [
@@ -609,6 +528,81 @@
      "left_mirror",
      "right_mirror",
      "wheel"
+    ]
+   },
+   {
+    "dosya": "1761133610501428962-5.jpg",
+    "aci_tr": "Ön",
+    "aci_en": "Front",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Cizik",
+      "guven": 0.4292,
+      "parca": null,
+      "ortusme": null,
+      "alan_yuzde": 1.149
+     }
+    ],
+    "parcalar": [
+     "back_bumper",
+     "back_glass",
+     "back_left_light",
+     "back_right_door",
+     "back_right_light",
+     "tailgate",
+     "trunk",
+     "wheel"
+    ]
+   },
+   {
+    "dosya": "1761133610501428962-11.jpg",
+    "aci_tr": "Ön sağ çeyrek",
+    "aci_en": "Front right quarter",
+    "boyut": [
+     1600,
+     1200
+    ],
+    "hasarlar": [
+     {
+      "ham": "Gocuk",
+      "guven": 0.7817,
+      "parca": "hood",
+      "ortusme": 0.835,
+      "alan_yuzde": 17.496
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.4315,
+      "parca": "hood",
+      "ortusme": 0.9314,
+      "alan_yuzde": 0.89
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.365,
+      "parca": "front_bumper",
+      "ortusme": 1.0,
+      "alan_yuzde": 0.05
+     },
+     {
+      "ham": "Cizik",
+      "guven": 0.2986,
+      "parca": "front_bumper",
+      "ortusme": 0.9995,
+      "alan_yuzde": 0.104
+     }
+    ],
+    "parcalar": [
+     "front_bumper",
+     "front_glass",
+     "front_right_light",
+     "hood",
+     "left_mirror",
+     "right_mirror"
     ]
    }
   ]
